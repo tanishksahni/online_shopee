@@ -3,6 +3,7 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/instance_manager.dart';
 import 'package:online_shopee/controllers/cart_controller.dart';
 import 'package:online_shopee/controllers/shopping_controller.dart';
+import 'package:online_shopee/models/product.dart';
 
 class ShoppingPage extends StatelessWidget {
   //controllers are based on functionality not on views
@@ -73,7 +74,7 @@ class ShoppingPage extends StatelessWidget {
               }),
             ),
             GetX<CartController>(builder: (controller) {
-              return  Text(
+              return Text(
                 'Total Amount: \$ ${controller.totalPrice}',
                 style: TextStyle(fontSize: 32, color: Colors.black),
               );
@@ -83,6 +84,20 @@ class ShoppingPage extends StatelessWidget {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {},
+        icon: Icon(
+          Icons.add_shopping_cart_rounded,
+          color: Colors.white,
+        ),
+        backgroundColor: Colors.blue,
+        label: GetX<CartController>(builder: (controller) {
+          return Text(
+            controller.count.toString(),
+            style: TextStyle(color: Colors.white, fontSize: 24),
+          );
+        }),
       ),
     );
   }
