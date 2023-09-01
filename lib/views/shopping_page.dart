@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/instance_manager.dart';
+import 'package:online_shopee/controllers/cart_controller.dart';
 import 'package:online_shopee/controllers/shopping_controller.dart';
 
 class ShoppingPage extends StatelessWidget {
+  //controllers are based on functionality not on views
   // we can also use dependency injection
   final shoppingController = Get.put(ShoppingController());
   // final shoppingController = ShoppingController();
-  // final cartController = Get.put(CartController());
+  final cartController = Get.put(CartController());
 
   @override
   Widget build(BuildContext context) {
@@ -54,26 +56,15 @@ class ShoppingPage extends StatelessWidget {
                               ),
                               ElevatedButton(
                                 onPressed: () {
-                                  // cartController
-                                  //     .addToCart(controller.products[index]);
+                                  cartController
+                                      .addToCart(controller.products[index]);
                                 },
                                 style: ElevatedButton.styleFrom(
                                   primary: Colors.blue,
                                   onPrimary: Colors.white,
                                 ),
-                                child: Text('Add to Cart'),
+                                child: const Text('Add to Cart'),
                               ),
-                              // Obx(() => IconButton(
-                              //       icon: controller
-                              //               .products[index].isFavorite.value
-                              //           ? Icon(Icons.check_box_rounded)
-                              //           : Icon(Icons
-                              //               .check_box_outline_blank_outlined),
-                              //       onPressed: () {
-                              //         controller.products[index].isFavorite
-                              //             .toggle();
-                              //       },
-                              //     ))
                             ],
                           ),
                         ),
@@ -81,8 +72,13 @@ class ShoppingPage extends StatelessWidget {
                     });
               }),
             ),
-            Text('Total Amount: '),
-            SizedBox(
+            GetX<CartController>(builder: (controller) {
+              return  Text(
+                'Total Amount: \$ ${controller.totalPrice}',
+                style: TextStyle(fontSize: 32, color: Colors.black),
+              );
+            }),
+            const SizedBox(
               height: 100,
             ),
           ],
