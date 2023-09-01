@@ -9,10 +9,10 @@ class ShoppingController extends GetxController {
   void onInit() {
     //here you can call apis 
     super.onInit();
-    fetchProduucts();
+    fetchProducts();
   }
 
-  void fetchProduucts() async {
+  void fetchProducts() async {
     await Future.delayed(Duration(seconds: 1));
     var productResult = [
       Product(
